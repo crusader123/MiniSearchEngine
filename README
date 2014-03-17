@@ -1,0 +1,43 @@
+	IRE Mini Project 1
+	-- Shubham Sangal
+	-- 201101008
+There are mainly 3 file in cpp which are basically open source code for libxml++ ( A SAX based Parser from XML) .
+myparser.h mainly is header file
+main.cc is main file which reads from input file and provides it to myparse.cc for tagwise parsing
+myparser.cc :: is the file which do most of work. It does parsiong tagwise and whole logic is here.
+
+install.sh : binary for installing additional libraries . I have used libxml++ 2.6 and boost libraries which need to be installed. Had to be run with root permissions.
+
+index.sh : create the index folder
+usage: bash index.sh (path to xml file) (path to index folder)
+
+query.sh : retrives posting list of queried word
+usage: bash query.sh (path to index folder) < inputfile
+
+			=================Important========================
+
+			I have used Fedora 18 for completing this work. Their might be some compatibility isses with compiler and libraries. Although I have tested the work on an ubuntu machine of my firend as well.
+
+			===============Compilation=========================
+
+First install 2 additional Libraries using intall.sh. Code wont work without it. The install.sh is written for ubuntu only.
+
+Way 1:
+
+Now for building index : you can use
+ 	g++ -std=c++0x -w -o indexExecutable main.cc myparser.cc `pkg-config --cflags --libs libxml++-2.6`
+Now to make index_folder:
+	./indexExecutable (path to xml file) (path to index folder)
+Now to get query:
+	g++ -w query1.cpp
+	./a.out (path to index folder) < inputfile
+	
+
+Way 2:
+
+just run index.sh and query.sh with usage as given above .
+
+
+A brief explanation of Algo and usage:
+
+This algo basically was tested with 44 GB wikipedia XML corpus. Since , we can't upload that much big file , I am attaching a 100 MB XML file in Data folder. So this algorithm basically parses XML file then creates indexes ( primary and secondary) and compresses data. When query is given, it gives top 10 relevant documents along with their title if they are there.
